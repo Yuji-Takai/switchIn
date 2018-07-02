@@ -1,0 +1,130 @@
+<html>
+    <style>
+        #coverages {
+            float: left;
+            border: 2px solid #ff00ff;
+            width: 55%;
+            margin: 10px;
+            padding: 5px;
+
+        }
+
+        #other_info {
+            float: right;
+            width: 40%;
+            border: 2px solid #ff00ff;
+            margin: 10px;
+        }
+        .coverage_box {
+            width: 48%;
+            height: 25%;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            text-align: center;
+            padding: 5px;
+        }
+
+        #PDL, #COL, #PIP {
+            float: left;
+        }
+
+        #BIL, #COM, #UUM {
+            float: right;
+        }
+
+        #box1 {
+            padding:2px;
+        }
+        #box2, #box3 {
+            clear: both;
+            padding: 2px;
+        }
+
+
+    </style>
+    <body>
+        <h1> Details of your coverage </h1>
+        <p> Here is the analysis of your current coverage </p>
+        <div>
+            <div id="coverages">
+                <div id="box1">
+                    <div class="coverage_box" id="PDL">
+                        <h3>Property Damage Liability</h3>
+                        <p>Property Damage Liability coverage helps you pay for the property damage if you are at-fault</p>
+                        <p>Your current coverage limit: {{coverage.liability_property}}</p>
+                    </div>
+                    <div class="coverage_box" id="BIL">
+                        <h3>Bodily Injury Liability</h3>
+                        <p>Bodily Injury Liability coverage helps you pay for the medical expenses if you are at-fault</p>
+                        <p>Your current coverage limit: {{coverage.liability_injury}}</p>
+                    </div>
+                </div>
+                <div id="box2">
+                    <div class="coverage_box" id="COL">
+                        <h3>Collision</h3>
+                        <p>Collision coverage helps you pay for the property damages to your car whether at-fault or non-fault</p>
+                        <p>Your current coverage deductible: {{coverage.collision}}</p>
+                    </div>
+                    <div class="coverage_box" id="COM">
+                        <h3>Comprehensive</h3>
+                        <p>Comprehensive covers losses from things other than an accident, like vandalism, riots, floods, hail, fire, animal collisions, and theft.</p>
+                        <p>Your current coverage deductible: {{coverage.comprehensive}}</p>
+                    </div>
+                </div>
+                <div id="box3">
+                    <div class="coverage_box" id="PIP">
+                        <h3>Personal Injury Protection</h3>
+                        <p>Personal Injury Protection coverage helps you pay for medical and rehabilitation expenses, work loss, funeral costs, and even replacement services</p>
+                        <p>Your current coverage deductible: {{coverage.personal_injury}}</p>
+                    </div>
+                    <div class="coverage_box" id="UUM">
+                        <h3>Uninsured/Underinsured Motorist</h3>
+                        <p>Comprehensive coverage provides Liability (Bodily Injury and Property Damage) coverage for you, if an uninsured or underinsured motorist is at fault in an accident</p>
+                        <p>Your current coverage limit: {{coverage.uninsured_injury}}</p>
+                    </div>
+                </div>
+            </div>
+            <div id="other_info">
+                <table>
+                    <caption>Policy General Info</caption>
+                    <tr>
+                        <th>Company Name</th>
+                        <td>{{ policy.company_name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Policy Number</th>
+                        <td>{{ policy.policy_number}}</td>
+                    </tr>
+                    <tr>
+                        <th>Effective Date</th>
+                        <td>{{ policy.effective_date}}</td>
+                    </tr>
+                    <tr>
+                        <th>Expiration Date</th>
+                        <td>{{ policy.expiration_date}}</td>
+                    </tr>
+                </table>
+                <table>
+                    <caption>Vehicle Info</caption>
+                    <tr>
+                        <th>Vehicle Year</th>
+                        <td>{{ vehicle.year }}</td>
+                    </tr>
+                    <tr>
+                        <th>Make</th>
+                        <td>{{ vehicle.make}}</td>
+                    </tr>
+                    <tr>
+                        <th>Model</th>
+                        <td>{{ vehicle.model}}</td>
+                    </tr>
+                    <tr>
+                        <th>VIN</th>
+                        <td>{{ vehicle.vin}}</td>
+                    </tr>
+                </table>
+
+
+            </div>
+        </div>
+    </body>
+</html>

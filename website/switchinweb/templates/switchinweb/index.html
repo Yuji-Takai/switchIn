@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+   <head>
+      <title>SwitchIn - Home</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+   </head>
+   <style>
+      #navbar{
+         overflow: hidden;
+         background-color: #ffffff;
+         width: 100%;
+      }
+      #navbar a {
+         float: left;
+         display: block;
+         color: #000000;
+         text-align: center;
+         padding: 14px 16px;
+         text-decoration: none;
+         font-size: 17px;
+         position: sticky;
+      }
+      #navbar a.active {
+         border: 2px #000000 solid;
+         padding: 12px 14px;
+         margin: 2px 2px 2px 2px;
+         text-align: center;
+      }
+      /* Change the link opacity on hover */
+      #navbar a:hover {
+         opacity: 0.5;
+      }
+      #docUpload {
+         width: 50%;
+         float:left;
+      }
+      #manualInputting {
+         width: 50%;
+         float:right;
+         border-width: 2px;
+      }
+
+   </style>
+
+
+   <body>
+      <div id="navbar">
+        <a class="active" href="{% url 'switchinweb:index' %}">Home</a>
+        <a href="{% url 'switchinweb:about' %}">About</a>
+      </div>
+
+      {% if error_message %} <p> {{error_message}} </p> {% endif %}
+
+      <h1>Welcome to SwitchIn!</h1>
+         <p>To start, you could either spend 5 secs to upload your proof of insurance or 5 minutes manually inputting your auto insurance info</p>
+         <br>
+      <div>
+         <div id="docUpload">
+            <form action="{% url 'switchinweb:upload' %}" enctype="multipart/form-data" method="POST" name="uploadDoc">
+            {% csrf_token %}
+               <div style = "max-width:470px;">
+                  <center>
+                     <input type = "file" style = "margin-left:20%;" placeholder="Document" name="document" />
+                  </center>
+               </div>
+               <br>
+               <div style = "max-width:470px;">
+                  <center>
+                     <button style = "border:0px;background-color:#4285F4; margin-top:8%; height:35px; width:80%; margin-left:19%;" type = "submit" value = "upload">
+                        <strong>Upload</strong>
+                     </button>
+                  </center>
+               </div>
+            </form>
+         </div>
+         <div id="manualInputting">
+            <form action="{% url 'switchinweb:manual' %}" method="POST" name="manualInput">
+            {% csrf_token %}
+               <table>
+                  <tr>
+                     <td><strong>General Information</strong></td>
+                  </tr>
+                  <tr>
+                     <td><label for="company_name">Company Name: </label></td>
+                     <td><input type="text" name="company_name" id="company_name"/></td>
+                  </tr>
+                  <tr>
+                     <td><label for="policy_number">Policy Number: </label></td>
+                     <td><input type="text" name="policy_number" id="policy_number"/></td>
+                  </tr>
+                  <tr>
+                     <td><label for="effective_date">Effective Date: </label></td>
+                     <td><input type="text" name="effective_date" id="effective_date" placeholder="MM-DD-YY"/></td>
+                  </tr>
+                  <tr>
+                     <td><label for="expiration_date">Expiration Date: </label></td>
+                     <td><input type="text" name="expiration_date" id="expiration_date" placeholder="MM-DD-YY"/></td>
+                  </tr>
+                  <tr>
+                     <td><label for="state">State: </label></td>
+                     <td><input type="text" name="state" id="state"/></td>
+                  </tr>
+                  <tr></tr>
+                  <tr>
+                     <td><strong>Vehicle Information</strong></td>
+                  </tr>
+                  <tr>
+                     <td><label for="year">Year: </label></td>
+                     <td><input type="text" name="year" id="year"/></td>
+                  </tr>
+                  <tr>
+                     <td><label for="make">Make: </label></td>
+                     <td><input type="text" name="make" id="make"/></td>
+                  </tr>
+                  <tr>
+                     <td><label for="model">Model: </label></td>
+                     <td><input type="text" name="model" id="model"/></td>
+                  </tr>
+                  <tr>
+                     <td><label for="vin">VIN: </label></td>
+                     <td><input type="text" name="vin" id="vin"/></td>
+                  </tr>
+                  <tr></tr>
+                  <tr>
+                     <td><strong>Coverage Information</strong></td>
+                  </tr>
+                  <tr>
+                     <td><label for="liability_property">Property Damage Liability: </label></td>
+                     <td><input type="text" name="liability_property" id="liability_property"/></td>
+                  </tr>
+                  <tr>
+                     <td><label for="liability_injury">Bodily Injury Liability: </label></td>
+                     <td><input type="text" name="liability_injury" id="liability_injury"/></td>
+                  </tr>
+                  <tr>
+                     <td><label for="personal_injury">Personal Injury Protection: </label></td>
+                     <td><input type="text" name="personal_injury" id="personal_injury"/></td>
+                  </tr>
+                  <tr>
+                     <td><label for="comprehensive">Comprehensive: </label></td>
+                     <td><input type="text" name="comprehensive" id="comprehensive"/></td>
+                  </tr>
+                  <tr>
+                     <td><label for="collision">Collision: </label></td>
+                     <td><input type="text" name="collision" id="collision"/></td>
+                  </tr>
+                  <tr>
+                     <td><label for="uninsured_injury">Uninsured/Underinsured Motorists: </label></td>
+                     <td><input type="text" name="uninsured_injury" id="uninsured_injury"/></td>
+                  </tr>
+               </table>
+               <button type="submit" value="manual">
+                  <strong>Submit</strong>
+               </button>
+            </form>
+         </div>
+      </div>
+   </body>
+</html>
