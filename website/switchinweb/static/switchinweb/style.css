@@ -1,0 +1,74 @@
+/******************************************************************************/
+/******************************************************************************/
+/* CSS style for index page*/
+
+#navbar{
+   overflow: hidden;
+   background-color: #ffffff;
+   width: 100%;
+}
+#navbar a {
+   float: left;
+   display: block;
+   color: #000000;
+   text-align: center;
+   padding: 14px 16px;
+   text-decoration: none;
+   font-size: 17px;
+   position: sticky;
+}
+#navbar a.active {
+   border: 2px #000000 solid;
+   padding: 12px 14px;
+   margin: 2px 2px 2px 2px;
+   text-align: center;
+   }
+/* Change the link opacity on hover */
+#navbar a:hover {
+   opacity: 0.5;
+   }
+#docUpload {
+   width: 50%;
+   float:left;
+}
+#manualInputting {
+   width: 50%;
+   float:right;
+   border-width: 2px;
+}
+
+/******************************************************************************/
+/******************************************************************************/
+/* CSS style for breakdown page*/
+
+#coverages {
+   float: left;
+   width: 55%;
+   margin: 10px;
+   padding: 5px;
+}
+#other_info {
+   float: right;
+   width: 40%;
+   margin: 10px;
+}
+.coverage_box {
+   width: 48%;
+   height: 25%;
+   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+   text-align: center;
+   padding: 5px;
+}
+#PDL, #COL, #PIP {
+   float: left;
+}
+#BIL, #COM, #UUM {
+   float: right;
+}
+#box1 {
+   padding:2px;
+}
+#box2, #box3 {
+   clear: both;
+   padding: 2px;
+}

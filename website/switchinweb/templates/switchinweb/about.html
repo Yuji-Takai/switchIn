@@ -2,40 +2,18 @@
 <html lang="en">
 
     <head>
-        {% block title %}<title>SwitchIn - Home</title>{% endblock %}
+        <title>SwitchIn - About</title>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="Yuji Takai">
+        <meta name="description" content="Explore who we are, what we are providing you and what we vision as our goal">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=1.0, maximum-scale=3.0">
     </head>
-    <style>
-        #navbar{
-            overflow: hidden;
-            background-color: #ffffff;
-            width: 100%;
-        }
-        #navbar a {
-            float: left;
-            display: block;
-            color: #000000;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-            font-size: 17px;
-            position: sticky;
-        }
-        /* Change the link opacity on hover */
-        #navbar a:hover {
-            opacity: 0.7;
-        }
-        #navbar a.active {
-            border: 2px #000000 solid;
-            padding: 12px 14px;
-            margin: 2px 2px 2px 2px;
-            text-align: center;
-        }
-    </style>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'switchinweb/style.css' %}" />
     <body>
         <div id="navbar">
             <a href="{% url 'switchinweb:index' %}">Home</a>
             <a class="active" href="{% url 'switchinweb:about' %}">About</a>
         </div>
+
     </body>

@@ -1,46 +1,14 @@
 <html>
-    <style>
-        #coverages {
-            float: left;
-            border: 2px solid #ff00ff;
-            width: 55%;
-            margin: 10px;
-            padding: 5px;
+    <head>
+      <title>SwitchIn - Breakdown</title>
+      <meta charset="utf-8">
+      <meta name="author" content="Yuji Takai">
+      <meta name="description" content="Breakdown of your coverage">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+   </head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'switchinweb/style.css' %}" />
 
-        }
-
-        #other_info {
-            float: right;
-            width: 40%;
-            border: 2px solid #ff00ff;
-            margin: 10px;
-        }
-        .coverage_box {
-            width: 48%;
-            height: 25%;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            text-align: center;
-            padding: 5px;
-        }
-
-        #PDL, #COL, #PIP {
-            float: left;
-        }
-
-        #BIL, #COM, #UUM {
-            float: right;
-        }
-
-        #box1 {
-            padding:2px;
-        }
-        #box2, #box3 {
-            clear: both;
-            padding: 2px;
-        }
-
-
-    </style>
     <body>
         <h1> Details of your coverage </h1>
         <p> Here is the analysis of your current coverage </p>
