@@ -17,6 +17,7 @@
    font-size: 17px;
    position: sticky;
 }
+/* the current page will be surrounded by a box */
 #navbar a.active {
    border: 2px #000000 solid;
    padding: 12px 14px;
@@ -31,6 +32,7 @@
    width: 50%;
    float:left;
 }
+
 #manualInputting {
    width: 50%;
    float:right;
@@ -71,4 +73,25 @@
 #box2, #box3 {
    clear: both;
    padding: 2px;
+}
+#buttonToDetail {
+   display: block;
+   color: #000000;
+   text-align: center;
+   padding: 14px 16px;
+   text-decoration: none;
+   font-size: 17px;
+   border: medium solid #000000;
+}
+
+/******************************************************************************/
+/******************************************************************************/
+/* CSS style for detail page*/
+#comparisonTable {
+   margin: auto;
+   width: 80%;
+   text-align: center;
+}
+#comparisonTable td, #comparisonTable th {
+   border: 2px solid #000000;
 }

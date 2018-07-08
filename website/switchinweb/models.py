@@ -6,7 +6,7 @@ from django.db import models
 # personal_injury:      personal injury protectino deductible
 # comprehensive:        comprehensive deductible
 # collision:            collision deductible
-# uninsured_injury:     uninsured/underinsured motorist limit
+# uninsured_injury:     uninsured/underinsured motorists injury limit
 class Coverage(models.Model):
     liability_property = models.CharField(max_length=200)
     liability_injury = models.CharField(max_length=200)

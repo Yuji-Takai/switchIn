@@ -26,14 +26,12 @@ class BreakdownView(View):
         policy = Policy.objects.get(pk=request.session["policypk"])
         return render(request, self.template_name, {'policy': policy, 'vehicle': policy.vehicle, 'coverage': policy.coverage})
 
-# class DetailView(generic.DetailView):
-#     model = Policy
-#     template_name = 'switchinweb/detail.html'
-
-
-def detail(request):
-    model = Policy
+class DetailView(View):
     template_name = 'switchinweb/detail.html'
+    def get(self, request):
+        policy = Policy.objects.get(pk=request.session["policypk"])
+        message = "Hi"
+        return render(request, self.template_name, {'policy': policy, 'message': message})
 
 def upload(request):
     form = PolicyForm(request.POST, request.FILES)

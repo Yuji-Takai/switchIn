@@ -172,6 +172,10 @@ def extractInfo(filename):
     info = {"Policy Number": "", "Effective Date": "", "Expiration Date": "", "Registered State": "", "Vehicle Year": "", "Make": "", "Model": "", "VIN": "", "Property Damage Liability": "", "Bodily Injury Liability": "", "Comprehensive": "", "Collision": "", "Personal Injury Protection": "", "Uninsured &Underinsured Motorists": ""}
     info = approximate_matching(text, info)
     info = discoverCompanyName(text, info)
+    if len(info["Effective Date"]) != 8:
+        info["Effective Date"] = ""
+    if len(info["Expiration Date"]) != 8:
+        info["Expiration Date"] = ""
     return info
 
 

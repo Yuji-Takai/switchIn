@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+   <head>
+      <title>SwitchIn - Details</title>
+      <meta charset="utf-8">
+      <meta name="author" content="Yuji Takai">
+      <meta name="description" content="Comparison of your coverage with average accident costs and our recommendation">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+   </head>
+   {% load static %}
+   <link rel="stylesheet" type="text/css" href="{% static 'switchinweb/style.css' %}" />
+   <body>
+        <h1>Detailed analysis of your coverage</h1>
+        <table id="comparisonTable">
+            <caption><strong>Analysis of your coverage</strong></caption>
+            <tr>
+                <th>Type</th>
+                <th>Your coverage</th>
+                <th>Avg state cost</th>
+                <th>Our recommendation</th>
+                <th>Avg of driver's like you</th>
+            </tr>
+            <tr>
+                <th>Property Damage Liability</th>
+                <td>{{ policy.coverage.liability_property }}</td>
+                <td>$1000/$2000</td>
+                <td>$3000/$4000</td>
+                <td>$800/$900</td>
+            </tr>
+            <tr>
+                <th>Bodily Injury Liability</th>
+                <td>{{ policy.coverage.liability_injury }}</td>
+                <td>$1000/$2000</td>
+                <td>$3000/$4000</td>
+                <td>$800/$900</td>
+            </tr>
+            <tr>
+                <th>Collision</th>
+                <td>{{ policy.coverage.collision }}</td>
+                <td>Avg state cost</td>
+                <td>Our recommendation</td>
+                <td>Avg of driver's like you</td>
+            </tr>
+            <tr>
+                <th>Comprehensive</th>
+                <td>{{ policy.coverage.comprehensive }}</td>
+                <td>Avg state cost</td>
+                <td>Our recommendation</td>
+                <td>Avg of driver's like you</td>
+            </tr>
+            <tr>
+                <th>Personal Injury Protection</th>
+                <td>{{ policy.coverage.personal_injury }}</td>
+                <td>Avg state cost</td>
+                <td>Our recommendation</td>
+                <td>Avg of driver's like you</td>
+            </tr>
+            <tr>
+                <th>Uninsured/Underinsured Motorists</th>
+                <td>{{ policy.coverage.uninsured_injury }}</td>
+                <td>Avg state cost</td>
+                <td>Our recommendation</td>
+                <td>Avg of driver's like you</td>
+            </tr>
+        </table>
+   </body>
+</html>
