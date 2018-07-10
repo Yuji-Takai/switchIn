@@ -22,32 +22,32 @@
             <tr>
                 <th>Property Damage Liability</th>
                 <td>${{ policy.coverage.liability_property }}</td>
-                <td>$3000/$4000</td>
+                <td>${{pdl_rec}}</td>
             </tr>
             <tr>
                 <th>Bodily Injury Liability</th>
                 <td>${{ policy.coverage.liability_person }}/${{ policy.coverage.liability_accident }}</td>
-                <td>$3000/$4000</td>
+                <td>${{bil_rec_person}}/${{bil_rec_accident}}</td>
             </tr>
             <tr>
                 <th>Collision</th>
                 <td>${{ policy.coverage.collision }}</td>
-                <td>Our recommendation</td>
+                <td>${{col_rec}}</td>
             </tr>
             <tr>
                 <th>Comprehensive</th>
                 <td>${{ policy.coverage.comprehensive }}</td>
-                <td>Our recommendation</td>
+                <td>${{com_rec}}</td>
             </tr>
             <tr>
                 <th>Personal Injury Protection</th>
                 <td>${{ policy.coverage.personal_injury }}</td>
-                <td>Our recommendation</td>
+                <td>${{pip_rec}}</td>
             </tr>
             <tr>
                 <th>Uninsured/Underinsured Motorists</th>
                 <td>${{ policy.coverage.uninsured_property }}</td>
-                <td>Our recommendation</td>
+                <td>${{upd_rec}}</td>
             </tr>
         </table>
    </body>

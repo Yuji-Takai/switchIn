@@ -5,6 +5,7 @@ from django.views import View, generic
 from .forms import PolicyForm, ManualForm
 from .models import Coverage, Vehicle, Policy, City, Vehicle
 from .modules.textExtract import extractInfo
+from .modules.recAlgo import recPropertyDamage, recBodilyInjury, recPIP, recCollision, recComprehensive, recUninsuredProperty
 from django.conf import settings
 
 class IndexView(View):
@@ -24,7 +25,7 @@ class BreakdownView(View):
     template_name = 'switchinweb/breakdown.html'
     def get(self, request):
         policy = Policy.objects.get(pk=request.session["policypk"])
-        city = City.objects.get(pk=request.session["citypk"])
+        city = City.objects.get(pk=policy.city)
         state = city.state
         pop_vehicle = Vehicle.objects.get(pk=state.pop_vehicle)
         return render(request, self.template_name, {'policy': policy, 'coverage': policy.coverage, 'city': city, 'pop_vehicle': pop_vehicle})
@@ -33,8 +34,19 @@ class DetailView(View):
     template_name = 'switchinweb/detail.html'
     def get(self, request):
         policy = Policy.objects.get(pk=request.session["policypk"])
-        message = "Hi"
-        return render(request, self.template_name, {'policy': policy, 'message': message})
+        pdl_rec = recPropertyDamage(policy)
+        bil_rec_person = recBodilyInjury(policy)
+        bil_rec_accident = bil_rec_person * 2
+        pip_rec = recPIP(policy)
+        col_rec = recCollision(policy)
+        com_rec = recComprehensive(policy)
+        upd_rec = recUninsuredProperty(policy)
+        # umi_rec = recBodilyInjury(policy)
+        return render(request, self.template_name, {'policy': policy,
+            'pdl_rec': pdl_rec, 'bil_rec_person': bil_rec_person,
+            'bil_rec_accident': bil_rec_accident,
+            'pip_rec': pip_rec, 'col_rec': col_rec, 'com_rec': com_rec,
+            'upd_rec': upd_rec})
 
 def upload(request):
     form = PolicyForm(request.POST, request.FILES)
@@ -57,15 +69,13 @@ def upload(request):
             under_person=policyinfo["under_person"],
             under_accident=policyinfo["under_accident"])
         coverage.save()
+        vehicle = policyinfo["make"] + " " + policyinfo["model"] + " " + str(policyinfo["year"])
         policy = Policy(company_name=policyinfo["company_name"],
             policy_number=policyinfo["policy_number"],
             effective_date=policyinfo["effective_date"],
             expiration_date=policyinfo["expiration_date"],
-            coverage=coverage, vin=policyinfo["vin"], mileage=mileage)
+            coverage=coverage, vin=policyinfo["vin"], mileage=mileage, vehicle=vehicle, city=city)
         policy.save()
-        vehicle = policyinfo["make"] + " " + policyinfo["model"] + " " + str(policyinfo["year"])
-        request.session["citypk"] = city
-        request.session["vehiclepk"] = vehicle
         request.session["policypk"] = policy.id
         return HttpResponseRedirect(reverse('switchinweb:breakdown'))
     else:
@@ -113,9 +123,7 @@ def manual(request):
         policy_number=policy_number,
         effective_date=effective_date,
         expiration_date=expiration_date,
-        coverage=coverage, vin=vin, mileage=mileage)
+        coverage=coverage, vin=vin, mileage=mileage, vehicle=vehicle, city=city)
     policy.save()
-    request.session["citypk"] = city
-    request.session["vehiclepk"] = vehicle
     request.session["policypk"] = policy.id
     return HttpResponseRedirect(reverse('switchinweb:breakdown'))
