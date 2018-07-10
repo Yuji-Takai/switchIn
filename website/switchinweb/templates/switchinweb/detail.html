@@ -17,51 +17,37 @@
             <tr>
                 <th>Type</th>
                 <th>Your coverage</th>
-                <th>Avg state cost</th>
                 <th>Our recommendation</th>
-                <th>Avg of driver's like you</th>
             </tr>
             <tr>
                 <th>Property Damage Liability</th>
-                <td>{{ policy.coverage.liability_property }}</td>
-                <td>$1000/$2000</td>
+                <td>${{ policy.coverage.liability_property }}</td>
                 <td>$3000/$4000</td>
-                <td>$800/$900</td>
             </tr>
             <tr>
                 <th>Bodily Injury Liability</th>
-                <td>{{ policy.coverage.liability_injury }}</td>
-                <td>$1000/$2000</td>
+                <td>${{ policy.coverage.liability_person }}/${{ policy.coverage.liability_accident }}</td>
                 <td>$3000/$4000</td>
-                <td>$800/$900</td>
             </tr>
             <tr>
                 <th>Collision</th>
-                <td>{{ policy.coverage.collision }}</td>
-                <td>Avg state cost</td>
+                <td>${{ policy.coverage.collision }}</td>
                 <td>Our recommendation</td>
-                <td>Avg of driver's like you</td>
             </tr>
             <tr>
                 <th>Comprehensive</th>
-                <td>{{ policy.coverage.comprehensive }}</td>
-                <td>Avg state cost</td>
+                <td>${{ policy.coverage.comprehensive }}</td>
                 <td>Our recommendation</td>
-                <td>Avg of driver's like you</td>
             </tr>
             <tr>
                 <th>Personal Injury Protection</th>
-                <td>{{ policy.coverage.personal_injury }}</td>
-                <td>Avg state cost</td>
+                <td>${{ policy.coverage.personal_injury }}</td>
                 <td>Our recommendation</td>
-                <td>Avg of driver's like you</td>
             </tr>
             <tr>
                 <th>Uninsured/Underinsured Motorists</th>
-                <td>{{ policy.coverage.uninsured_injury }}</td>
-                <td>Avg state cost</td>
+                <td>${{ policy.coverage.uninsured_property }}</td>
                 <td>Our recommendation</td>
-                <td>Avg of driver's like you</td>
             </tr>
         </table>
    </body>

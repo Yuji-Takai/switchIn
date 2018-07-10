@@ -12,6 +12,7 @@
     <body>
         <h1> Details of your coverage </h1>
         <p> Here is the analysis of your current coverage </p>
+        <p> The most popular vehicle in your state is: {{pop_vehicle.name}} </p>
         <div>
             <div id="coverages">
                 <div id="box1">
@@ -23,7 +24,7 @@
                     <div class="coverage_box" id="BIL">
                         <h3>Bodily Injury Liability</h3>
                         <p>Bodily Injury Liability coverage helps you pay for the medical expenses if you are at-fault</p>
-                        <p>Your current coverage limit: {{coverage.liability_injury}}</p>
+                        <p>Your current coverage limit: {{coverage.liability_person}}/{{coverage.liability_accident}}</p>
                     </div>
                 </div>
                 <div id="box2">
@@ -47,7 +48,7 @@
                     <div class="coverage_box" id="UUM">
                         <h3>Uninsured/Underinsured Motorist</h3>
                         <p>Comprehensive coverage provides Liability (Bodily Injury and Property Damage) coverage for you, if an uninsured or underinsured motorist is at fault in an accident</p>
-                        <p>Your current coverage limit: {{coverage.uninsured_injury}}</p>
+                        <p>Your current coverage limit: {{coverage.uninsured_property}}</p>
                     </div>
                 </div>
             </div>
@@ -69,25 +70,6 @@
                     <tr>
                         <th>Expiration Date</th>
                         <td>{{ policy.expiration_date}}</td>
-                    </tr>
-                </table>
-                <table>
-                    <caption>Vehicle Info</caption>
-                    <tr>
-                        <th>Vehicle Year</th>
-                        <td>{{ vehicle.year }}</td>
-                    </tr>
-                    <tr>
-                        <th>Make</th>
-                        <td>{{ vehicle.make}}</td>
-                    </tr>
-                    <tr>
-                        <th>Model</th>
-                        <td>{{ vehicle.model}}</td>
-                    </tr>
-                    <tr>
-                        <th>VIN</th>
-                        <td>{{ vehicle.vin}}</td>
                     </tr>
                 </table>
                 <a id="buttonToDetail" href="{% url 'switchinweb:detail' %}">Go To Details</a>

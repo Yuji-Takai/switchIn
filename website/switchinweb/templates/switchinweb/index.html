@@ -27,6 +27,10 @@
          <div id="docUpload">
             <form action="{% url 'switchinweb:upload' %}" enctype="multipart/form-data" method="POST" name="uploadDoc">
             {% csrf_token %}
+
+               City: <input type="text" placeholder="City" name="city" id="city"/>
+               <br>
+               Mileage: <input type="number" placeholder="0" name="mileage" id="mileage" min="0" />
                <div style = "max-width:470px;">
                   <center>
                      <input type = "file" style = "margin-left:20%;" placeholder="Document" name="document" />
@@ -50,43 +54,51 @@
                      <td><strong>General Information</strong></td>
                   </tr>
                   <tr>
-                     <td><label for="company_name">Company Name: </label></td>
+                     <td>Company Name: </td>
                      <td><input type="text" name="company_name" id="company_name"/></td>
                   </tr>
                   <tr>
-                     <td><label for="policy_number">Policy Number: </label></td>
+                     <td>Policy Number: </td>
                      <td><input type="text" name="policy_number" id="policy_number"/></td>
                   </tr>
                   <tr>
-                     <td><label for="effective_date">Effective Date: </label></td>
-                     <td><input type="text" name="effective_date" id="effective_date" placeholder="MM-DD-YY"/></td>
+                     <td>Effective Date: </td>
+                     <td><input type="date" name="effective_date" id="effective_date"/></td>
                   </tr>
                   <tr>
-                     <td><label for="expiration_date">Expiration Date: </label></td>
-                     <td><input type="text" name="expiration_date" id="expiration_date" placeholder="MM-DD-YY"/></td>
+                     <td>Expiration Date: </td>
+                     <td><input type="date" name="expiration_date" id="expiration_date"/></td>
                   </tr>
                   <tr>
-                     <td><label for="state">State: </label></td>
+                     <td>State: </td>
                      <td><input type="text" name="state" id="state"/></td>
+                  </tr>
+                  <tr>
+                     <td>Mileage: </td>
+                     <td><input type="number" name="mileage" id="mileage" min="0"/></td>
+                  </tr>
+                  <tr>
+                     <td>City: </td>
+                     <td><input type="text" name="city" id="city"/></td>
                   </tr>
                   <tr></tr>
                   <tr>
                      <td><strong>Vehicle Information</strong></td>
                   </tr>
                   <tr>
-                     <td><label for="year">Year: </label></td>
-                     <td><input type="text" name="year" id="year"/></td>
+                     <td>Year: </td>
+                     <td><input type="number" name="year" id="year" min="1950"/></td>
                   </tr>
                   <tr>
-                     <td><label for="make">Make: </label></td>
+                     <td>Make: </td>
                      <td><input type="text" name="make" id="make"/></td>
                   </tr>
                   <tr>
-                     <td><label for="model">Model: </label></td>
+                     <td>Model: </td>
                      <td><input type="text" name="model" id="model"/></td>
                   </tr>
                   <tr>
-                     <td><label for="vin">VIN: </label></td>
+                     <td>VIN: </td>
                      <td><input type="text" name="vin" id="vin"/></td>
                   </tr>
                   <tr></tr>
@@ -94,28 +106,32 @@
                      <td><strong>Coverage Information</strong></td>
                   </tr>
                   <tr>
-                     <td><label for="liability_property">Property Damage Liability: </label></td>
-                     <td><input type="text" name="liability_property" id="liability_property"/></td>
+                     <td>Property Damage Liability: </td>
+                     <td>$<input type="number" name="liability_property" id="liability_property" min="0"/></td>
                   </tr>
                   <tr>
-                     <td><label for="liability_injury">Bodily Injury Liability: </label></td>
-                     <td><input type="text" name="liability_injury" id="liability_injury"/></td>
+                     <td>Bodily Injury Liability: </td>
+                     <td>$<input type="number" name="liability_person" id="liability_person" min="0"/>/$<input type="number" name="liability_accident" id="liability_accident" min="0"/></td>
                   </tr>
                   <tr>
-                     <td><label for="personal_injury">Personal Injury Protection: </label></td>
-                     <td><input type="text" name="personal_injury" id="personal_injury"/></td>
+                     <td>Personal Injury Protection: </td>
+                     <td>$<input type="number" name="personal_injury" id="personal_injury" min="0"/></td>
                   </tr>
                   <tr>
-                     <td><label for="comprehensive">Comprehensive: </label></td>
-                     <td><input type="text" name="comprehensive" id="comprehensive"/></td>
+                     <td>Comprehensive: </td>
+                     <td>$<input type="number" name="comprehensive" id="comprehensive" min="0"/></td>
                   </tr>
                   <tr>
-                     <td><label for="collision">Collision: </label></td>
-                     <td><input type="text" name="collision" id="collision"/></td>
+                     <td>Collision: </td>
+                     <td>$<input type="number" name="collision" id="collision" min="0"/></td>
                   </tr>
                   <tr>
-                     <td><label for="uninsured_injury">Uninsured/Underinsured Motorists: </label></td>
-                     <td><input type="text" name="uninsured_injury" id="uninsured_injury"/></td>
+                     <td>Uninsured/Underinsured Property Damage: </td>
+                     <td>$<input type="number" name="uninsured_property" id="uninsured_property" min="0"/></td>
+                  </tr>
+                  <tr>
+                     <td>Uninsured/Underinsured Motorists: </td>
+                     <td>$<input type="number" name="uninsured_person" id="uninsured_person" min="0"/>/$<input type="number" name="uninsured_accident" id="uninsured_accident" min="0"/></td>
                   </tr>
                </table>
                <button type="submit" value="manual">
