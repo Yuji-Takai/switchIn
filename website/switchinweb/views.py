@@ -72,11 +72,16 @@ def upload(request):
         vehicle = policyinfo["make"] + " " + policyinfo["model"] + " " + str(policyinfo["year"])
         policy = Policy(company_name=policyinfo["company_name"],
             policy_number=policyinfo["policy_number"],
-            effective_date=policyinfo["effective_date"],
-            expiration_date=policyinfo["expiration_date"],
             coverage=coverage, vin=policyinfo["vin"], mileage=mileage, vehicle=vehicle, city=city)
         policy.save()
+        if(policyinfo["effective_date"] !=""):
+            policy.effective_date=policyinfo["effective_date"]
+            policy.save()
+        if(policyinfo["expiration_date"] != ""):
+            policy.expiration_date=policyinfo["expiration_date"]
+            policy.save()
         request.session["policypk"] = policy.id
+        request.session["policyinfo"] = policyinfo["liability_person"]
         return HttpResponseRedirect(reverse('switchinweb:breakdown'))
     else:
         return render(request, 'switchinweb/index.html')

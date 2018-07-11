@@ -102,3 +102,4 @@ def extractInfo(filename):
         for key in GENERAL:
             GENERAL[key] = approximate_matching(words, key)
         return GENERAL.update({"Company Name": company})
+
