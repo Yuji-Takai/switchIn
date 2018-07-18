@@ -1,29 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-
-   <head>
+  <head>
       <title>SwitchIn - Details</title>
       <meta charset="utf-8">
       <meta name="author" content="Yuji Takai">
       <meta name="description" content="Comparison of your coverage with average accident costs and our recommendation">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-   </head>
-   {% load static %}
-   <link rel="stylesheet" type="text/css" href="{% static 'switchinweb/style.css' %}" />
-   <body>
-        <h1>Detailed analysis of your coverage</h1>
-        <table id="comparisonTable">
-            <caption><strong>Analysis of your coverage</strong></caption>
+      {% load static %}
+      <link rel="icon" href="{% static 'switchinweb/images/icon.png' %}">
+  <style>
+      body { margin: 0; padding: 0; background-color: rgb(251, 238, 230); }
+      h1 { margin: 0 0 0 5%; color: #FF8200; font-family: arial; }
+      .navbar { margin: 0; overflow: hidden; background-color: rgb(251, 238, 230); padding: 0; }
+      .navbar a { float: left; color: #FF8200; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 17px; }
+      .navbar a.active { border-bottom: 2px #FF8200 solid; }
+      .navbar a:hover { opacity: 0.5; }
+      .navbar-right { float:right; }
+      #intro { margin: 0 30%; width: 40%; text-align: center; word-wrap: break-word;}
+      td, th { border: 1px solid black; width: 33%;}
+      table { border-collapse: collapse; width: 40%; margin: 12px 30%; border: 1%; text-align: center; word-wrap: break-word;}
+  </style>
+  </head>
+    <body>
+      <div class="navbar">
+         <div class="navbar-right">
+            <a href="{% url 'switchinweb:index' %}">Home</a>
+            <a href="{% url 'switchinweb:about' %}">About</a>
+            <a href="{% url 'switchinweb:contact' %}">Contact Us</a>
+         </div>
+      </div>
+      <h1>Detailed analysis of your coverage</h1>
+      <p id="intro">Based on your vehicle and annual mileage, as well as the city you live in, we have estimated the coverage you should have in order to be safe on road</p>
+        <table class="comparisonTable">
             <tr>
                 <th>Type</th>
                 <th>Your coverage</th>
                 <th>Our recommendation</th>
             </tr>
+
             <tr>
                 <th>Property Damage Liability</th>
-                <td>${{ policy.coverage.liability_property }}</td>
-                <td>${{pdl_rec}}</td>
+                <td>{{ policy.coverage.liability_property }}</td>
+                <td>{{pdl_rec}}</td>
             </tr>
+
             <tr>
                 <th>Bodily Injury Liability</th>
                 <td>${{ policy.coverage.liability_person }}/${{ policy.coverage.liability_accident }}</td>

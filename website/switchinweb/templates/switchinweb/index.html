@@ -1,144 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
-
    <head>
       <title>SwitchIn - Home</title>
       <meta charset="utf-8">
       <meta name="author" content="Yuji Takai">
       <meta name="description" content="SwitchIn's unbiased smart tool to analyze your current auto insurance and suggest an upgrade">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-   </head>
-   {% load static %}
-   <link rel="stylesheet" type="text/css" href="{% static 'switchinweb/style.css' %}" />
+      {% load static %}
+      <link rel="icon" href="{% static 'switchinweb/images/icon.png' %}">
+   <style>
+      body { margin: 0; padding: 0; background-color: rgb(251, 238, 230); }
+      h1 { color: #FF8200; font-family: arial}
+      /* Navigation bar styling*/
+      .navbar { margin: 0 0 5%; overflow: hidden; background-color: rgb(251, 238, 230); padding: 0; }
+      .navbar a { float: left; color: #FF8200; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 17px; }
+      .navbar a.active { border-bottom: 2px #FF8200 solid; }
+      .navbar a:hover { opacity: 0.5; }
+      .navbar-right { float:right; }
+      .docUpload { float: left; margin: 0 10%;}
+      .manualInputting { float: left; margin: 0 10%;}
 
+      .docUpload, .manualInputting { width: 30%; background:#fff; padding:40px; box-sizing: border-box; border: 1px solid rgba(0,0,0,.1); box-shadow: 0 5px 10px rgba(0,0,0,.2); }
+      .docUpload h2, .manualInputting h2 { margin: 0 0 20px; padding: 0; color: #FF8200; text-transform: uppercase; }
+      .docUpload input, .manualInputting input { padding: 10px 0; margin-bottom: 15px; width: 100%; box-sizing: border-box; box-shadow: none; outline: none; border: none; border-bottom: 2px solid #999; }
+      .docUpload input[type="submit"], .manualInputting input[type="submit"] { border-bottom:none; cursor:pointer; background: #FF8200; color: #fff; margin-bottom:0; text-transform: uppercase; }
+      .docUpload input[type="file"], .docUpload input[type="file"]:focus { border-bottom: none; }
+      .docUpload form div, .manualInputting form div { position: relative;}
+
+      .docUpload form div label, .manualInputting form div label { position: absolute; top: 10px; left: 0; color: #999; transition: .5s; pointer-events: none; }
+      .docUpload input:focus ~ label, .docUpload input:valid ~ label, .manualInputting input:focus ~ label, .manualInputting input:valid ~ label { top: -12px; left: 0; color: #FF8200; font-size: 12px; font-weight: bold; }
+      .docUpload input:focus, .docUpload input:valid, .manualInputting input:focus, .manualInputting input:valid { border-bottom: 2px solid #FF8200; }
+
+      /* Chrome/Opera/Safari */
+      input::-webkit-input-placeholder { color: #FFFFFF; }
+      input:focus::-webkit-input-placeholder { color: #999; }
+      /* Firefox 19+ */
+      input::-moz-placeholder { color: #FFFFFF; }
+      input:focus::-moz-placeholder { color: #999; }
+      /* IE 10+ */
+      input:-ms-input-placeholder { color: #FFFFFF; }
+      input:focus:-ms-input-placeholder { color: #999; }
+      /* Firefox 18- */
+      input:-moz-placeholder { color: #FFFFFF; }
+      input:focus:-moz-placeholder { color: #999; }
+   </style>
+   </head>
 
    <body>
-      <div id="navbar">
-        <a class="active" href="{% url 'switchinweb:index' %}">Home</a>
-        <a href="{% url 'switchinweb:about' %}">About</a>
-      </div>
-
-      {% if error_message %} <p> {{error_message}} </p> {% endif %}
-
-      <h1>Welcome to SwitchIn!</h1>
-         <p>To start, you could either spend 5 secs to upload your proof of insurance or 5 minutes manually inputting your auto insurance info</p>
-         <br>
-      <div>
-         <div id="docUpload">
+         <div class="navbar">
+            <div class="navbar-right">
+               <a class="active" href="{% url 'switchinweb:index' %}">Home</a>
+               <a href="{% url 'switchinweb:about' %}">About</a>
+               <a href="{% url 'switchinweb:contact' %}">Contact Us</a>
+            </div>
+         </div>
+      <div class="docUpload">
+            <h2>Welcome to SwitchIn!</h2>
+            <p>Input your current auto insurance coverage info, mileage you drive annually, and city you live by uploading your proof of coverage or manually entering.</p>
             <form action="{% url 'switchinweb:upload' %}" enctype="multipart/form-data" method="POST" name="uploadDoc">
             {% csrf_token %}
-
-               City: <input type="text" placeholder="City" name="city" id="city"/>
-               <br>
-               Mileage: <input type="number" placeholder="0" name="mileage" id="mileage" min="0" />
-               <div style = "max-width:470px;">
-                  <center>
-                     <input type = "file" style = "margin-left:20%;" placeholder="Document" name="document" />
-                  </center>
+               <div>
+                  <input type="text" name="city" id="city" required="">
+                  <label>City</label>
                </div>
-               <br>
-               <div style = "max-width:470px;">
-                  <center>
-                     <button style = "border:0px;background-color:#4285F4; margin-top:8%; height:35px; width:80%; margin-left:19%;" type = "submit" value = "upload">
-                        <strong>Upload</strong>
-                     </button>
-                  </center>
+               <div>
+                  <input type="number" name="mileage" id="mileage" min="0" required=""/>
+                  <label>Annual Mileage</label>
                </div>
+               <div>
+                  <input type="file" placeholder="Document" name="document" required=""/>
+               </div>
+               <input type="submit" value = "upload"/>
             </form>
-         </div>
-         <div id="manualInputting">
+      </div>
+
+         <div class="manualInputting">
             <form action="{% url 'switchinweb:manual' %}" method="POST" name="manualInput">
             {% csrf_token %}
-               <table>
-                  <tr>
-                     <td><strong>General Information</strong></td>
-                  </tr>
-                  <tr>
-                     <td>Company Name: </td>
-                     <td><input type="text" name="company_name" id="company_name"/></td>
-                  </tr>
-                  <tr>
-                     <td>Policy Number: </td>
-                     <td><input type="text" name="policy_number" id="policy_number"/></td>
-                  </tr>
-                  <tr>
-                     <td>Effective Date: </td>
-                     <td><input type="date" name="effective_date" id="effective_date"/></td>
-                  </tr>
-                  <tr>
-                     <td>Expiration Date: </td>
-                     <td><input type="date" name="expiration_date" id="expiration_date"/></td>
-                  </tr>
-                  <tr>
-                     <td>State: </td>
-                     <td><input type="text" name="state" id="state"/></td>
-                  </tr>
-                  <tr>
-                     <td>Mileage: </td>
-                     <td><input type="number" name="mileage" id="mileage" min="0"/></td>
-                  </tr>
-                  <tr>
-                     <td>City: </td>
-                     <td><input type="text" name="city" id="city"/></td>
-                  </tr>
-                  <tr></tr>
-                  <tr>
-                     <td><strong>Vehicle Information</strong></td>
-                  </tr>
-                  <tr>
-                     <td>Year: </td>
-                     <td><input type="number" name="year" id="year" min="1950"/></td>
-                  </tr>
-                  <tr>
-                     <td>Make: </td>
-                     <td><input type="text" name="make" id="make"/></td>
-                  </tr>
-                  <tr>
-                     <td>Model: </td>
-                     <td><input type="text" name="model" id="model"/></td>
-                  </tr>
-                  <tr>
-                     <td>VIN: </td>
-                     <td><input type="text" name="vin" id="vin"/></td>
-                  </tr>
-                  <tr></tr>
-                  <tr>
-                     <td><strong>Coverage Information</strong></td>
-                  </tr>
-                  <tr>
-                     <td>Property Damage Liability: </td>
-                     <td>$<input type="number" name="liability_property" id="liability_property" min="0"/></td>
-                  </tr>
-                  <tr>
-                     <td>Bodily Injury Liability: </td>
-                     <td>$<input type="number" name="liability_person" id="liability_person" min="0"/>/$<input type="number" name="liability_accident" id="liability_accident" min="0"/></td>
-                  </tr>
-                  <tr>
-                     <td>Personal Injury Protection: </td>
-                     <td>$<input type="number" name="personal_injury" id="personal_injury" min="0"/></td>
-                  </tr>
-                  <tr>
-                     <td>Comprehensive: </td>
-                     <td>$<input type="number" name="comprehensive" id="comprehensive" min="0"/></td>
-                  </tr>
-                  <tr>
-                     <td>Collision: </td>
-                     <td>$<input type="number" name="collision" id="collision" min="0"/></td>
-                  </tr>
-                  <tr>
-                     <td>Uninsured/Underinsured Property Damage: </td>
-                     <td>$<input type="number" name="uninsured_property" id="uninsured_property" min="0"/></td>
-                  </tr>
-                  <tr>
-                     <td>Uninsured/Underinsured Motorists: </td>
-                     <td>$<input type="number" name="uninsured_person" id="uninsured_person" min="0"/>/$<input type="number" name="uninsured_accident" id="uninsured_accident" min="0"/></td>
-                  </tr>
-               </table>
-               <button type="submit" value="manual">
-                  <strong>Submit</strong>
-               </button>
+               <h2>Manual Input Option</h2>
+               <div>
+                  <input type="text" name="company_name" id="company_name" required/>
+                  <label>Company Name</label>
+               </div>
+               <div>
+                  <input type="text" name="mileage" id="mileage" required/>
+                  <label>Annual Mileage</label>
+               </div>
+               <div>
+                  <input type="text" name="city" id="city" required/>
+                  <label>City</label>
+               </div>
+               <div>
+                  <input type="text" name="vehicle_info" id="vehicle_info" placeholder="ex: 2011 Hyundai Sonata" required/>
+                  <label>Vehicle Info</label>
+               </div>
+               <div>
+                  <input type="text" name="liability_property" id="liability_property" placeholder="ex: 5000" required/>
+                  <label>Property Damage Liability</label>
+               </div>
+               <div>
+                  <input type="text" name="liability_injury" id="liability_injury" placeholder="ex: 20000/40000" required/>
+                  <label>Bodily Injury Liability</label>
+               </div>
+               <div>
+                  <input type="text" name="personal_injury" id="personal_injury" placeholder="ex: 1000" required/>
+                  <label>Personal Injury Protection (Deductible)</label>
+               </div>
+               <div>
+                  <input type="text" name="comprehensive" id="comprehensive" placeholder="ex: 200" required/>
+                  <label>Comprehensive (Deductible)</label>
+               </div>
+               <div>
+                  <input type="text" name="collision" id="collision" placeholder="ex: 200" required/>
+                  <label>Collision (Deductible)</label>
+               </div>
+               <div>
+                  <input type="text" name="uninsured_property" id="uninsured_property" placeholder="ex: 20000" required/>
+                  <label>Uninsured/Underinsured Property Damage</label>
+               </div>
+               <div>
+                  <input type="text" name="uninsured_injury" id="uninsured_injury" placeholder="ex: 20000/40000" required/>
+                  <label>Uninsured/Underinsured Motorists</label>
+               </div>
+               <input type="submit" value="submit"/>
             </form>
          </div>
-      </div>
    </body>
 </html>

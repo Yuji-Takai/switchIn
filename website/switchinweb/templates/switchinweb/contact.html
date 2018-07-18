@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>SwitchIn - About</title>
+        <meta charset="utf-8">
+        <meta name="author" content="Yuji Takai">
+        <meta name="description" content="Explore who we are, what we are providing you and what we vision as our goal">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=1.0, maximum-scale=3.0">
+    <style>
+        body { margin: 0; padding: 0; background-color: rgb(251, 238, 230); }
+        .navbar { margin: 0 0 5%; overflow: hidden; background-color: rgb(251, 238, 230); padding: 0; }
+        .navbar a { float: left; color: #FF8200; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 17px; }
+        .navbar a.active { border-bottom: 2px #FF8200 solid; }
+        .navbar a:hover { opacity: 0.5; }
+        .navbar-right { float:right; }
+    </style>
+        {% load static %}
+        <link rel="icon" href="{% static 'switchinweb/images/icon.png' %}">
+
+    </head>
+
+    <body>
+        <div class="navbar">
+         <div class="navbar-right">
+            <a href="{% url 'switchinweb:index' %}">Home</a>
+            <a href="{% url 'switchinweb:about' %}">About</a>
+            <a class="active" href="{% url 'switchinweb:contact' %}">Contact Us</a>
+         </div>
+      </div>
+        <h1>Our Team</h1>
+    </body>
+
+</html>

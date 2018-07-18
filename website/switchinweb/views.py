@@ -20,6 +20,16 @@ class AboutView(View):
     def get(self, request):
         return render(request, self.template_name)
 
+class TeamView(View):
+    template_name = 'switchinweb/team.html'
+    def get(self, request):
+        return render(request, self.template_name)
+
+class ContactView(View):
+    template_name = 'switchinweb/contact.html'
+    def get(self, request):
+        return render(request, self.template_name)
+
 
 class BreakdownView(View):
     template_name = 'switchinweb/breakdown.html'
@@ -28,12 +38,7 @@ class BreakdownView(View):
         city = City.objects.get(pk=policy.city)
         state = city.state
         pop_vehicle = Vehicle.objects.get(pk=state.pop_vehicle)
-        return render(request, self.template_name, {'policy': policy, 'coverage': policy.coverage, 'city': city, 'pop_vehicle': pop_vehicle})
 
-class DetailView(View):
-    template_name = 'switchinweb/detail.html'
-    def get(self, request):
-        policy = Policy.objects.get(pk=request.session["policypk"])
         pdl_rec = recPropertyDamage(policy)
         bil_rec_person = recBodilyInjury(policy)
         bil_rec_accident = bil_rec_person * 2
@@ -41,7 +46,30 @@ class DetailView(View):
         col_rec = recCollision(policy)
         com_rec = recComprehensive(policy)
         upd_rec = recUninsuredProperty(policy)
-        # umi_rec = recBodilyInjury(policy)
+
+        request.session["pdl_rec"] = pdl_rec
+        request.session["bil_rec_person"] = bil_rec_person
+        request.session["bil_rec_accident"] = bil_rec_accident
+        request.session["pip_rec"] = pip_rec
+        request.session["col_rec"] = col_rec
+        request.session["com_rec"] = com_rec
+        request.session["upd_rec"] = upd_rec
+        return render(request, self.template_name, {'policy': policy, 'coverage': policy.coverage, 'city': city, 'pop_vehicle': pop_vehicle, 'pdl_rec': pdl_rec, 'bil_rec_person': bil_rec_person,
+            'bil_rec_accident': bil_rec_accident,
+            'pip_rec': pip_rec, 'col_rec': col_rec, 'com_rec': com_rec,
+            'upd_rec': upd_rec})
+
+class DetailView(View):
+    template_name = 'switchinweb/detail.html'
+    def get(self, request):
+        policy = Policy.objects.get(pk=request.session["policypk"])
+        pdl_rec = request.session["pdl_rec"]
+        bil_rec_person = request.session["bil_rec_person"]
+        bil_rec_accident = request.session["bil_rec_accident"]
+        pip_rec = request.session["pip_rec"]
+        col_rec = request.session["col_rec"]
+        com_rec = request.session["com_rec"]
+        upd_rec = request.session["upd_rec"]
         return render(request, self.template_name, {'policy': policy,
             'pdl_rec': pdl_rec, 'bil_rec_person': bil_rec_person,
             'bil_rec_accident': bil_rec_accident,
@@ -69,7 +97,7 @@ def upload(request):
             under_person=policyinfo["under_person"],
             under_accident=policyinfo["under_accident"])
         coverage.save()
-        vehicle = policyinfo["make"] + " " + policyinfo["model"] + " " + str(policyinfo["year"])
+        vehicle = str(policyinfo["year"]) + " " + policyinfo["make"] + " " + policyinfo["model"]
         policy = Policy(company_name=policyinfo["company_name"],
             policy_number=policyinfo["policy_number"],
             coverage=coverage, vin=policyinfo["vin"], mileage=mileage, vehicle=vehicle, city=city)
@@ -89,31 +117,42 @@ def upload(request):
 def manual(request):
     # Policy info
     company_name        = request.POST.get('company_name')
-    policy_number       = request.POST.get('policy_number')
-    effective_date      = request.POST.get('effective_date')
-    expiration_date     = request.POST.get('expiration_date')
-    state               = request.POST.get('state')
-    vin                 = request.POST.get('vin')
     mileage             = request.POST.get('mileage')
     city                = request.POST.get('city')
 
     # Coverage info
-    liability_property  = request.POST.get('liability_property')
-    liability_person    = request.POST.get('liability_person')
-    liability_accident  = request.POST.get('liability_accident')
-    personal_injury     = request.POST.get('personal_injury')
-    comprehensive       = request.POST.get('comprehensive')
-    collision           = request.POST.get('collision')
-    uninsured_property  = request.POST.get('uninsured_property')
-    uninsured_person    = request.POST.get('uninsured_person')
-    uninsured_accident  = request.POST.get('uninsured_accident')
+    liability_property  = int(request.POST.get('liability_property')) if request.POST.get('liability_property') != "N/A" else 0
+    liability_injury    = request.POST.get('liability_injury')
+    liability_person    = 0
+    liability_accident  = 0
 
-    make                = request.POST.get('make')
-    models              = request.POST.get('model')
-    year                = request.POST.get('year')
-    vin                 = request.POST.get('vin')
+    if (liability_injury == "N/A"):
+        liability_person = 0
+        liability_accident = 0
+    else:
+        liability_injury = liability_injury.split('/')
+        liability_person = int(liability_injury[0])
+        liability_accident = int(liability_injury[1])
 
-    vehicle = policyinfo["make"] + " " + policyinfo["model"] + " " + str(policyinfo["year"])
+    personal_injury     = int(request.POST.get('personal_injury')) if request.POST.get('personal_injury') != "N/A" else 0
+    comprehensive       = int(request.POST.get('comprehensive')) if request.POST.get('comprehensive') != "N/A" else 0
+    collision           = int(request.POST.get('collision')) if request.POST.get('collision') != "N/A" else 0
+    uninsured_property  = int(request.POST.get('uninsured_property')) if request.POST.get('uninsured_property') != "N/A" else 0
+    uninsured_injury    = request.POST.get('uninsured_injury')
+    uninsured_person    = 0
+    uninsured_accident  = 0
+
+    if (uninsured_injury == "N/A"):
+        uninsured_person = 0
+        uninsured_accident = 0
+    else:
+        uninsured_injury = uninsured_injury.split('/')
+        uninsured_person = int(uninsured_injury[0])
+        uninsured_accident = int(uninsured_injury[1])
+
+
+    vehicle             = request.POST.get('vehicle_info').upper()
+
     coverage = Coverage(liability_property=liability_property,
         liability_person=liability_person,
         liability_accident=liability_accident,
@@ -124,11 +163,8 @@ def manual(request):
         uninsured_person=uninsured_person,
         uninsured_accident=uninsured_accident)
     coverage.save()
-    policy = Policy(company_name=company_name,
-        policy_number=policy_number,
-        effective_date=effective_date,
-        expiration_date=expiration_date,
-        coverage=coverage, vin=vin, mileage=mileage, vehicle=vehicle, city=city)
+    policy = Policy(company_name=company_name, coverage=coverage,
+        mileage=mileage, vehicle=vehicle, city=city)
     policy.save()
     request.session["policypk"] = policy.id
     return HttpResponseRedirect(reverse('switchinweb:breakdown'))

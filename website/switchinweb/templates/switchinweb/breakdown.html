@@ -1,81 +1,89 @@
 <html>
     <head>
-      <title>SwitchIn - Breakdown</title>
-      <meta charset="utf-8">
-      <meta name="author" content="Yuji Takai">
-      <meta name="description" content="Breakdown of your coverage">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-   </head>
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'switchinweb/style.css' %}" />
+        <title>SwitchIn - Breakdown</title>
+        <meta charset="utf-8">
+        <meta name="author" content="Yuji Takai">
+        <meta name="description" content="Breakdown of your coverage">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% load static %}
+        <link rel="icon" href="{% static 'switchinweb/images/icon.png' %}">
+    <style>
+        body { margin: 0; padding: 0; background-color: rgb(251, 238, 230); }
+        .box {margin: 0; width: 100%; height: 10%;}
+        .coverage_box { width: 20%; height: 20%; text-align: center; border-width: 0; padding: 0; word-wrap: break-word;}
+
+        #lia { display: inline-block; float: left; margin: 0 10% 0 10%; }
+        #pip { display: inline-block; float: left; margin: 0; }
+        #col { display: inline-block; float: left; margin: 0 10% 0 10%;}
+
+        .space {clear: both; height: 5%; width: 100%; border-width: 0;}
+        #com { display: inline-block; float: left; margin: 0 10% 0 10%;}
+        #udp { display: inline-block; float: left; margin: 0; }
+        #other_info { width: 20%; height: 20%; float: left; padding: 0; margin: 0 10% 0 10%; position: relative;}
+
+        #button2detail { height: 30%; width: 100% margin: 0; border-width: 0; padding: 0; position: absolute; top: 50%; transform: translateY(-50%);}
+        #buttonToDetail { margin: 0; height: 100%; text-align: center; text-decoration: none; color: #000000; float: left;}
+        #arrow { margin: 0; height: 1.3em; width: 1.3em;}
+
+
+    </style>
+    </head>
 
     <body>
-        <h1> Details of your coverage </h1>
-        <p> Here is the analysis of your current coverage </p>
-        <p> The most popular vehicle in your state is: {{pop_vehicle.name}} </p>
-        {{policyinfo}}
-        <div>
-            <div id="coverages">
-                <div id="box1">
-                    <div class="coverage_box" id="PDL">
-                        <h3>Property Damage Liability</h3>
-                        <p>Property Damage Liability coverage helps you pay for the property damage if you are at-fault</p>
-                        <p>Your current coverage limit: {{coverage.liability_property}}</p>
-                    </div>
-                    <div class="coverage_box" id="BIL">
-                        <h3>Bodily Injury Liability</h3>
-                        <p>Bodily Injury Liability coverage helps you pay for the medical expenses if you are at-fault</p>
-                        <p>Your current coverage limit: {{coverage.liability_person}}/{{coverage.liability_accident}}</p>
-                    </div>
-                </div>
-                <div id="box2">
-                    <div class="coverage_box" id="COL">
-                        <h3>Collision</h3>
-                        <p>Collision coverage helps you pay for the property damages to your car whether at-fault or non-fault</p>
-                        <p>Your current coverage deductible: {{coverage.collision}}</p>
-                    </div>
-                    <div class="coverage_box" id="COM">
-                        <h3>Comprehensive</h3>
-                        <p>Comprehensive covers losses from things other than an accident, like vandalism, riots, floods, hail, fire, animal collisions, and theft.</p>
-                        <p>Your current coverage deductible: {{coverage.comprehensive}}</p>
-                    </div>
-                </div>
-                <div id="box3">
-                    <div class="coverage_box" id="PIP">
-                        <h3>Personal Injury Protection</h3>
-                        <p>Personal Injury Protection coverage helps you pay for medical and rehabilitation expenses, work loss, funeral costs, and even replacement services</p>
-                        <p>Your current coverage deductible: {{coverage.personal_injury}}</p>
-                    </div>
-                    <div class="coverage_box" id="UUM">
-                        <h3>Uninsured/Underinsured Motorist</h3>
-                        <p>Comprehensive coverage provides Liability (Bodily Injury and Property Damage) coverage for you, if an uninsured or underinsured motorist is at fault in an accident</p>
-                        <p>Your current coverage limit: {{coverage.uninsured_property}}</p>
-                    </div>
-                </div>
-            </div>
-            <div id="other_info">
-                <table>
-                    <caption>Policy General Info</caption>
-                    <tr>
-                        <th>Company Name</th>
-                        <td>{{ policy.company_name }}</td>
-                    </tr>
-                    <tr>
-                        <th>Policy Number</th>
-                        <td>{{ policy.policy_number}}</td>
-                    </tr>
-                    <tr>
-                        <th>Effective Date</th>
-                        <td>{{ policy.effective_date}}</td>
-                    </tr>
-                    <tr>
-                        <th>Expiration Date</th>
-                        <td>{{ policy.expiration_date}}</td>
-                    </tr>
-                </table>
-                <a id="buttonToDetail" href="{% url 'switchinweb:detail' %}">Go To Details</a>
+        <h1> Overview of the analysis of your coverage </h1>
+        <p> Here is the analysis of your current coverage</p>
 
+            {% if coverage.liability_property > pdl_rec %}
+                <div class="coverage_box" style="background-color: rgb(50,205,50)" id="lia">
+                    <h3>Liability Coverage</h3>
+                </div>
+            {% else %}
+                <div class="coverage_box" style="background-color: rgb(205,50,50)" id="lia">
+                    <h3>Liability Coverage</h3>
+                </div>
+            {% endif %}
+
+            {% if coverage.personal_injury < pip_rec %}
+                <div class="coverage_box" style="background-color: rgb(50,205,50)" id="pip">
+                    <h3>Personal Injury Protection</h3>
+                </div>
+            {% else %}
+                <div class="coverage_box" style="background-color: rgb(205,50,50)" id="pip">
+                    <h3>Personal Injury Protection</h3>
+                </div>
+            {% endif %}
+            {% if coverage.collision < col_rec %}
+                <div class="coverage_box" style="background-color: rgb(50,205,50)" id="col">
+                    <h3>Collision</h3>
+                </div>
+            {% else %}
+                <div class="coverage_box" style="background-color: rgb(50,205,50)" id="col">
+                    <h3>Collision</h3>
+                </div>
+            {% endif %}
+        <div class="space"></div>
+            {% if coverage.comprehensive < com_rec %}
+                <div class="coverage_box" style="background-color: rgb(50,205,50)" id="com">
+                    <h3>Comprehensive</h3>
+                </div>
+            {% else %}
+                <div class="coverage_box" style="background-color: rgb(205,50,50)" id="com">
+                    <h3>Comprehensive</h3>
+                </div>
+            {% endif %}
+            {% if coverage.uninsured_property > udp_rec %}
+                <div class="coverage_box" style="background-color: rgb(50,205,50)" id="udp">
+                    <h3>Uninsured/Underinsured Motorists</h3>
+                </div>
+            {% else %}
+                <div class="coverage_box" style="background-color: rgb(205,50,50)" id="udp">
+                    <h3>Uninsured/Underinsured</h3>
+                </div>
+            {% endif %}
+            <div id="other_info" >
+                <div id="button2detail">
+                    <a id="buttonToDetail" href="{% url 'switchinweb:detail' %}" >Go To Details <spam><img id="arrow" src="{% static 'switchinweb/images/arrow.png' %}"/></spam></a>
+                </div>
             </div>
-        </div>
     </body>
 </html>

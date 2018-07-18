@@ -7,17 +7,46 @@
         <meta name="author" content="Yuji Takai">
         <meta name="description" content="Explore who we are, what we are providing you and what we vision as our goal">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=1.0, maximum-scale=3.0">
+        {% load static %}
+        <link rel="icon" href="{% static 'switchinweb/images/icon.png' %}">
+    <style>
+        body { margin: 0; padding: 0; background-color: rgb(251, 238, 230); }
+        h1 { color: #FF8200; font-family: arial;}
+        /* Navigation bar styling*/
+        .navbar { margin: 0 0 5%; overflow: hidden; background-color: rgb(251, 238, 230); padding: 0; }
+        .navbar a { float: left; color: #FF8200; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 17px; }
+        .navbar a.active { border-bottom: 2px #FF8200 solid; }
+        .navbar a:hover { opacity: 0.5; }
+        .navbar-right { float:right; }
+
+        #description {margin: 0 10%;}
+    </style>
+
+
     </head>
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'switchinweb/style.css' %}" />
     <body>
-        <div id="navbar">
-            <a href="{% url 'switchinweb:index' %}">Home</a>
-            <a class="active" href="{% url 'switchinweb:about' %}">About</a>
+        <div class="navbar">
+            <div class="navbar-right">
+                <a href="{% url 'switchinweb:index' %}">Home</a>
+                <a class="active" href="{% url 'switchinweb:about' %}">About</a>
+                <a href="{% url 'switchinweb:contact' %}">Contact Us</a>
+            </div>
         </div>
-        <h1>Our Vision</h1>
-        <p>Have everyone on the road well protected at any time.</p>
-        <h1>Our Mission</h1>
-        <p>Provide a smart tool for all drivers to ensure a proper coverage.</p>
-        <p>We provide an unbiased universal insurance evaluation tool that gives auto insurance holders the best possible customized solution. We are doing this by educating drivers on their current coverage and suggesting a better solution if needed.</p>
-    </body>
+        <div id="description">
+            <h1>About Us</h1>
+            <p>We want everyone on the road to be well protected, at any time. SwitchIn is a free, unbiased auto insurance evaluation tool that provides you with the best customized solution. We do this by making sure you understand your current coverage and suggesting a better alternative if needed. </p>
+
+            <p> With SwitchIn, you will: <br>
+            - Learn everything you need to know about your coverage in a few minutes <br>
+            - Get your coverage ranked and analyzed in detail based on your vehicle type and location <br>
+            - Receive suggestions (IF you need them) on what you could improve and WHY! <br>
+            </p>
+
+            <p> Available in the state of California only at this moment. <br>
+            To start, go to the home page and upload a copy of your “proof of insurance”, or manually enter your coverage information. </p>
+
+            <p> - That’s it. Watch the magic happen.</p>
+
+        </body>
+
+</html>

@@ -107,11 +107,11 @@ class City(models.Model):
 # mileage:              mileage driven per year by user
 class Policy(models.Model):
     company_name    = models.CharField(max_length=40, null=True)
-    policy_number   = models.CharField(max_length=30, null=True)
-    effective_date  = models.DateField(auto_now=False, auto_now_add=False, null=True)
-    expiration_date = models.DateField(auto_now=False, auto_now_add=False, null=True)
+    policy_number   = models.CharField(max_length=30, blank=True, null=True)
+    effective_date  = models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True)
+    expiration_date = models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True)
     coverage        = models.OneToOneField(Coverage, on_delete=models.CASCADE, null=True)
-    vin             = models.CharField(max_length=17, null=True)
+    vin             = models.CharField(max_length=17, blank=True, null=True)
     mileage         = models.PositiveIntegerField(blank=True, default=0)
     vehicle         = models.CharField(max_length=46, default="general")
     city            = models.CharField(max_length=40, default="general")
